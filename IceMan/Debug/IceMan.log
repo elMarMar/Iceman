@@ -1,9 +1,9 @@
 ﻿  Actor.cpp
-C:\Users\marec\source\repos\IceMan\IceMan\Actor.h(16,76): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\roybae\source\repos\Iceman\IceMan\Actor.h(15,76): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'Actor.cpp')
   
-C:\Users\marec\source\repos\IceMan\IceMan\Actor.cpp(42,92): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\marec\source\repos\IceMan\IceMan\Actor.cpp(48,93): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\marec\source\repos\IceMan\IceMan\Actor.cpp(54,90): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\marec\source\repos\IceMan\IceMan\Actor.cpp(60,92): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  IceMan.vcxproj -> C:\Users\marec\source\repos\IceMan\Debug\IceMan.exe
+C:\Users\roybae\source\repos\Iceman\IceMan\Actor.cpp(49,92): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\roybae\source\repos\Iceman\IceMan\Actor.cpp(55,93): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\roybae\source\repos\Iceman\IceMan\Actor.cpp(61,90): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\roybae\source\repos\Iceman\IceMan\Actor.cpp(67,92): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  IceMan.vcxproj -> C:\Users\roybae\source\repos\Iceman\Debug\IceMan.exe

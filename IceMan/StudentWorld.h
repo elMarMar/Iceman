@@ -8,7 +8,9 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <queue>
 #include "Actor.h"
+#include "GraphObject.h"
 
 // Forward Declarations:
 class Actor;
@@ -20,7 +22,9 @@ class StudentWorld : public GameWorld
 {
 public:
 	StudentWorld(std::string assetDir)
-		: GameWorld(assetDir) {}
+		: GameWorld(assetDir), iceman(nullptr) {
+		m_ticksSinceLastProtester = 200;
+	}
 	virtual ~StudentWorld();
 
 	virtual int init();
@@ -40,10 +44,26 @@ public:
 	void useSonarKit(Actor* a);
 	bool isEmptySpace(Actor* a);
 	bool checkCoordsAreValid(int x, int y, int size) const;
+	Iceman* getIceman() const { return iceman; }
+
+	bool isProtesterPathClear(int x, int y) const;
+	Actor::Direction lineOfSightToIceman(const Actor* p) const;
+
+	// general helper functions:
+	double calculateDistance(const Actor* a1, const Actor* a2) const;	// Calculate Actors Distance
+	double calculateDistance(int x, int y, double a1Size, const Actor* a2) const; // Calculate Actors Distance (a1 is to be spawn, a2 is defined in StudentWorld object)
+	double calculateDistance(int x1, int y1, double a1Size, int x2, int y2, double a2Size) const; 	// Calculate "Hypothetical/Numerical" Distances
+	
+	// Returns true if a protester was annoyed
+	bool annoyProtesterAt(const Actor* annoyer, int damage);
+	GraphObject::Direction getDirectionToExit(int x, int y);
+	// Returns true if a protester was bribed
+	bool bribeProtesterAt(const Actor* goldNugget);
+	Actor::Direction findPathToIceman(const Actor* p, int& moves);
 
 private:
-	std::vector<Actor*> actors;
 	Iceman* iceman;
+	std::vector<Actor*> actors;
 	const static int ICE_ARRAY_SIZE = 60;
 	Ice* ice2DArray[ICE_ARRAY_SIZE][ICE_ARRAY_SIZE];
 
@@ -59,7 +79,7 @@ private:
 	bool isSpawnTooCloseToOtherActors(int x, int y, double size, const std::vector<Actor*>& actors);
 	bool isEmptySpace(int x, int y, double objectSize);
 	bool isInTunnelSpawn(int x, int y, double size);
-
+	
 	// move() helpers
 	void updateDisplayText();
 	void removeDeadGameObjects();
@@ -78,13 +98,8 @@ private:
 	bool checkBelowForIce(Actor* a);
 	int determineGameStatus();
 
-	// general helper functions:
-	double calculateDistance(const Actor* a1, const Actor* a2) const;	// Calculate Actors Distance
-	double calculateDistance(int x, int y, double a1Size, const Actor* a2) const; // Calculate Actors Distance (a1 is to be spawn, a2 is defined in StudentWorld object)
-	double calculateDistance(int x1, int y1, double a1Size, int x2, int y2, double a2Size) const; 	// Calculate "Hypothetical/Numerical" Distances
-
-
-
+	int m_ticksSinceLastProtester = 0;
+	GraphObject::Direction m_exitMap[64][64];
+	void computeExitMap();
 };
-
 #endif // STUDENTWORLD_H_

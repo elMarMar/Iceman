@@ -3,7 +3,6 @@
 
 #include "GraphObject.h"
 // ----****----
-#include "StudentWorld.h"
 #include "GameConstants.h"
 #include <cmath>
 
@@ -103,6 +102,7 @@ public:
 
 	// Functionality:
 	void interactWith(Actor* a) override;
+	void takeDamage(unsigned int damageAmount);
 
 private:
 	int waterSquirts = 5;
@@ -284,6 +284,48 @@ private:
 
 };
 
+class Protester : public Entity {
+public:
+	Protester(int imageID, int startX, int startY, StudentWorld* sw, int hp);
+	virtual ~Protester();
+	void update() override;
+	void takeDamage(unsigned int damageAmount, bool bonkedByBoulder = false);
+	virtual void pickedUpGoldNugget();
+	bool isLeaving() const;
+	virtual void performNormalProtesterBehavior();
 
+protected:
+	int m_numSquaresToMoveInCurrentDirection;
+	int m_stareTicks;
+	int m_restingTicks;
+	int m_shoutTickCount;
+	int m_perpendicularTurnTickCount;
+	bool m_leaveOilFieldState;
+	int getTicksToWaitBetweenMoves() const;
+	void activateLeaveOilFieldState();
+	void calcuatePathToExit();
+	void handleShouting();
+	void doCommonAI();
+};
+
+class RegularProtester : public Protester {
+public:
+	RegularProtester(int startX, int startY, StudentWorld* sw);
+	virtual ~RegularProtester();
+	void performNormalProtesterBehavior() override;
+
+protected:
+	void pickedUpGoldNugget() override;
+};
+
+class HardcoreProtester : public Protester {
+public:
+	HardcoreProtester(int startX, int startY, StudentWorld* sw);
+	virtual ~HardcoreProtester();
+	void performNormalProtesterBehavior() override;
+
+protected:
+	void pickedUpGoldNugget() override;
+};
 
 #endif // ACTOR_H_
